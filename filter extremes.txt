@@ -1,0 +1,42 @@
+# filter out words that occur less than n = 
+numOfDocsForWord = {}
+for doc in docs:
+  for word in set(doc):
+    numOfDocsForWord[word] = numOfDocsForWord.get(word, 0) + 1
+
+numberOfDocs = len(docs)
+def removeLeastFrequent(n, docs, numOfDocsForWord):
+  wordsLeastFrequent = set()
+  for word in numOfDocsForWord:
+    if numOfDocsForWord[word] <= n:
+      wordsLeastFrequent.add(word)
+  
+  new_docs = []
+  for tokens in docs:
+    token_new=[]
+    for x in tokens:
+        if x not in wordsLeastFrequent:
+            token_new.append(x)
+    new_docs.append(token_new)
+  return new_docs
+
+# filter out words that occur more than n = 
+def getNMostFrequent(n, docs, numOfDocsForWord):
+  firstNWords = set()
+  sortedDict = {k: v for k, v in sorted(numOfDocsForWord.items(), key=lambda item: item[1])}
+  for word in sortedDict:
+    firstNWords.add(word)
+    n-=1
+    if n == 0:
+      break
+  new_docs = []
+  for tokens in docs:
+    token_new=[]
+    for x in tokens:
+        if x in firstNWords:
+            token_new.append(x)
+    new_docs.append(token_new)
+  return new_docs
+
+docs = removeLeastFrequent(2, docs, numOfDocsForWord)
+docs = getNMostFrequent(100000, docs, numOfDocsForWord)
