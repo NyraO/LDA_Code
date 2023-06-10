@@ -1,7 +1,7 @@
 # filter out words that occur less than n = 
 numOfDocsForWord = {}
 for doc in docs:
-  for word in set(doc):
+  for word in set(doyc):
     numOfDocsForWord[word] = numOfDocsForWord.get(word, 0) + 1
 
 numberOfDocs = len(docs)
